@@ -3,7 +3,7 @@ import './Header.css'
 
 const Header = () => (
   <nav className="navbar">
-    <h1 className="header-title">MovieDB</h1>
+    <h1 className="header-title">movieDB</h1>
     <ul className="nav-links">
       <li>
         <NavLink

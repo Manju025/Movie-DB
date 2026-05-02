@@ -52,6 +52,7 @@ const MovieDetails = () => {
 
     fetchData()
     fetchCast()
+    window.scrollTo(0, 0)
   }, [id])
 
   return (

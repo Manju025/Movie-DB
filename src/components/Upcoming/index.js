@@ -4,6 +4,7 @@ import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Card from '../Card'
 import Footer from '../Footer'
+import {getUpcomingMoviesURL} from '../../utils/constants'
 import './Upcoming.css'
 
 const Upcoming = () => {
@@ -15,16 +16,7 @@ const Upcoming = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = `https://api.themoviedb.org/3/movie/upcoming?api_key=4695068ae1f5065e4fd2ae5b40e0ff23&language=en-US&page=${page}`
-      const apiToken =
-        'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Njk1MDY4YWUxZjUwNjVlNGZkMmFlNWI0MGUwZmYyMyIsIm5iZiI6MTc3NzM3MTI5Ni4wOTUsInN1YiI6IjY5ZjA4OGEwNWRhYWY2YTc3OWE5ZTc1MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gm72BX2-K0eStv1VRm8LYnQ2K3G8oPwUsHLJtASq2Zs'
-      const response = await fetch(apiKey, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-          'Content-Type': 'Application/json',
-        },
-      })
+      const response = await fetch(getUpcomingMoviesURL(page))
       const data = await response.json()
       setUpComing(data.results)
       setMaxDate(data.dates.maximum)
@@ -39,7 +31,7 @@ const Upcoming = () => {
     <div className="upcoming">
       <Header />
       <div className="upcoming-head">
-        <h2 className="title">Up Coming</h2>
+        <h2 className="title">Upcoming</h2>
         <div className="upcoming-dates">
           <p>
             <FaRegCalendarAlt /> {new Date(minDate).toLocaleDateString('en-GB')}{' '}

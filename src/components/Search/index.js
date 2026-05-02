@@ -3,21 +3,21 @@ import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Footer from '../Footer'
 import Card from '../Card'
+import {getSearchMoviesURL} from '../../utils/constants'
 import './Search.css'
 
 const Search = () => {
   const [searchData, setSearchData] = useState([])
-  const [text, setTest] = useState('')
+  const [query, setQuery] = useState('')
+  const [inputValue, setInputValue] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
     const fetchData = async () => {
-      if (text === '') return
+      if (query === '') return
 
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=4695068ae1f5065e4fd2ae5b40e0ff23&query=${text}&page=${page}`
-
-      const response = await fetch(url)
+      const response = await fetch(getSearchMoviesURL(query, page))
       const data = await response.json()
 
       const filteredMovies = data.results.filter(
@@ -29,7 +29,7 @@ const Search = () => {
 
     fetchData()
     window.scrollTo(0, 0)
-  }, [text, page])
+  }, [query, page])
 
   return (
     <div className="search">
@@ -37,11 +37,21 @@ const Search = () => {
       <div className="search-head">
         <input
           type="search"
-          value={text}
-          onChange={e => setTest(e.target.value)}
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
           placeholder="Movie Search..."
           className="input"
         />
+        <button
+          type="button"
+          className="search-button"
+          onClick={() => {
+            setPage(1)
+            setQuery(inputValue.trim())
+          }}
+        >
+          Search
+        </button>
       </div>
       {searchData.length === 0 ? (
         <div className="search-empty">
@@ -53,7 +63,7 @@ const Search = () => {
             <Card
               key={movie.id}
               id={movie.id}
-              imageUrl={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              imageUrl={movie.poster_path}
               name={movie.title}
               rating={movie.vote_average}
             />

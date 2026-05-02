@@ -3,6 +3,7 @@ import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Footer from '../Footer'
 import Card from '../Card'
+import {getTopRatedMoviesURL} from '../../utils/constants'
 import './TopRated.css'
 
 const TopRated = () => {
@@ -12,18 +13,7 @@ const TopRated = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = `https://api.themoviedb.org/3/movie/top_rated?api_key=4695068ae1f5065e4fd2ae5b40e0ff23&language=en-US&page=${page}`
-      const apiToken =
-        'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Njk1MDY4YWUxZjUwNjVlNGZkMmFlNWI0MGUwZmYyMyIsIm5iZiI6MTc3NzM3MTI5Ni4wOTUsInN1YiI6IjY5ZjA4OGEwNWRhYWY2YTc3OWE5ZTc1MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gm72BX2-K0eStv1VRm8LYnQ2K3G8oPwUsHLJtASq2Zs'
-
-      const response = await fetch(apiKey, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-          'Content-Type': 'Application/json',
-        },
-      })
-
+      const response = await fetch(getTopRatedMoviesURL(page))
       const data = await response.json()
       setTopRated(data.results)
       setTotalPages(data.total_pages)
@@ -35,7 +25,7 @@ const TopRated = () => {
   return (
     <div className="toprated">
       <Header />
-      <h1 className="title">Top Rated Movies</h1>
+      <h1 className="title">Top Rated</h1>
       <div className="home-cards">
         {topRated.map(movie => (
           <Card
