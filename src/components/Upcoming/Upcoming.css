@@ -1,0 +1,23 @@
+.upcoming {
+  background: linear-gradient(
+    135deg,
+    #2d2212,
+    #0d1920,
+    #120e22,
+    #1b0b17,
+    rgb(49, 19, 19)
+  );
+  min-height: 100vh;
+  padding-top: 0px;
+}
+
+.upcoming-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upcoming-dates {
+  color: rgb(100, 100, 100);
+  margin-right: 90px;
+}

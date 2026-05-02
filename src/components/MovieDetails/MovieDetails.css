@@ -1,0 +1,147 @@
+.md {
+  min-height: 100vh;
+  background: #0b0f1a;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.md-backdrop {
+  position: relative;
+  height: 90vh;
+  background: center / cover no-repeat;
+  border-radius: 0 0 30px 30px;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.9)
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.md-hero {
+  position: relative;
+  z-index: 2;
+  bottom: 1px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 0 60px;
+}
+
+.poster {
+  width: 250px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.md-info h1 {
+  font-size: 38px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 0px;
+}
+
+.tagline {
+  font-style: italic;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.meta span {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #ccc;
+}
+
+.overview {
+  max-width: 600px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.extra {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.extra p {
+  margin-bottom: 6px;
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.links a {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #e50914;
+  color: #fff;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.links a:hover {
+  background: #b20710;
+}
+
+.cast-section {
+  padding: 60px;
+}
+
+.cast-section h2 {
+  margin-bottom: 20px;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 25px;
+}
+
+.cast-card {
+  background: #121826;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.cast-card:hover {
+  transform: translateY(-5px);
+}
+
+.cast-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.cast-card h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.cast-card p {
+  font-size: 12px;
+  color: #aaa;
+}
