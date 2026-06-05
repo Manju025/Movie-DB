@@ -108,16 +108,6 @@
   gap: 6px;
 }
 
-.meta span:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(229, 9, 20, 0.3) 0%,
-    rgba(229, 9, 20, 0.2) 100%
-  );
-  border-color: rgba(229, 9, 20, 0.6);
-  transform: translateY(-3px);
-}
-
 .overview {
   max-width: 650px;
   line-height: 1.8;
@@ -143,11 +133,6 @@
   border-radius: 10px;
   border-left: 3px solid #e50914;
   transition: all 0.3s ease;
-}
-
-.extra p:hover {
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateX(5px);
 }
 
 .extra strong {
