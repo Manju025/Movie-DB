@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {useLocation, useHistory} from 'react-router-dom'
 import {FaRegCalendarAlt} from 'react-icons/fa'
 import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
@@ -8,10 +9,15 @@ import {getUpcomingMoviesURL} from '../../utils/constants'
 import './Upcoming.css'
 
 const Upcoming = () => {
+  const location = useLocation()
+  const history = useHistory()
+  const queryParams = new URLSearchParams(location.search)
+  const initialPage = parseInt(queryParams.get('page')) || 1
+
   const [upcoming, setUpComing] = useState([])
   const [maxDate, setMaxDate] = useState('')
   const [minDate, setMinDate] = useState('')
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(initialPage)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
@@ -26,6 +32,11 @@ const Upcoming = () => {
     fetchData()
     window.scrollTo(0, 0)
   }, [page])
+
+  const handlePageChange = (event, value) => {
+    setPage(value)
+    history.push(`/upcoming?page=${value}`)
+  }
 
   return (
     <div className="upcoming">
@@ -54,8 +65,9 @@ const Upcoming = () => {
         {totalPages === 1 ? null : (
           <Pagination
             count={totalPages}
+            page={page}
             variant="outlined"
-            onChange={(event, value) => setPage(value)}
+            onChange={handlePageChange}
             color="secondary"
             sx={{
               '& .MuiPaginationItem-root': {

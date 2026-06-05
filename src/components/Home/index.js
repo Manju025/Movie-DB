@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {useLocation, useHistory} from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Card from '../Card'
@@ -7,8 +8,13 @@ import {getPopularMoviesURL} from '../../utils/constants'
 import './Home.css'
 
 const Home = () => {
+  const location = useLocation()
+  const history = useHistory()
+  const queryParams = new URLSearchParams(location.search)
+  const initialPage = parseInt(queryParams.get('page')) || 1
+
   const [popularMovies, setPopularMovies] = useState([])
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(initialPage)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
@@ -21,6 +27,11 @@ const Home = () => {
     fetchData()
     window.scrollTo(0, 0)
   }, [page])
+
+  const handlePageChange = (event, value) => {
+    setPage(value)
+    history.push(`/?page=${value}`)
+  }
 
   return (
     <div className="home">
@@ -41,8 +52,9 @@ const Home = () => {
         {totalPages === 1 ? null : (
           <Pagination
             count={totalPages}
+            page={page}
             variant="outlined"
-            onChange={(event, value) => setPage(value)}
+            onChange={handlePageChange}
             color="secondary"
             sx={{
               '& .MuiPaginationItem-root': {

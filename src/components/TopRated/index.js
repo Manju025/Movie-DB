@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {useLocation, useHistory} from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -7,8 +8,13 @@ import {getTopRatedMoviesURL} from '../../utils/constants'
 import './TopRated.css'
 
 const TopRated = () => {
+  const location = useLocation()
+  const history = useHistory()
+  const queryParams = new URLSearchParams(location.search)
+  const initialPage = parseInt(queryParams.get('page')) || 1
+
   const [topRated, setTopRated] = useState([])
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(initialPage)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
@@ -21,6 +27,11 @@ const TopRated = () => {
     fetchData()
     window.scrollTo(0, 0)
   }, [page])
+
+  const handlePageChange = (event, value) => {
+    setPage(value)
+    history.push(`/top-rated?page=${value}`)
+  }
 
   return (
     <div className="toprated">
@@ -41,8 +52,9 @@ const TopRated = () => {
         {totalPages === 1 ? null : (
           <Pagination
             count={totalPages}
+            page={page}
             variant="outlined"
-            onChange={(event, value) => setPage(value)}
+            onChange={handlePageChange}
             color="secondary"
             sx={{
               '& .MuiPaginationItem-root': {

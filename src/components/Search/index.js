@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useHistory} from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -9,21 +9,24 @@ import './Search.css'
 
 const Search = () => {
   const location = useLocation()
+  const history = useHistory()
   const queryParams = new URLSearchParams(location.search)
   const initialQuery = queryParams.get('q') || ''
+  const initialPage = parseInt(queryParams.get('page')) || 1
 
   const [searchData, setSearchData] = useState([])
   const [query, setQuery] = useState(initialQuery)
   const [inputValue, setInputValue] = useState(initialQuery)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(initialPage)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
     const currentQuery = queryParams.get('q') || ''
+    const currentPage = parseInt(queryParams.get('page')) || 1
     setQuery(currentQuery)
     setInputValue(currentQuery)
-    setPage(1)
+    setPage(currentPage)
   }, [location.search])
 
   useEffect(() => {
@@ -44,6 +47,10 @@ const Search = () => {
     window.scrollTo(0, 0)
   }, [query, page])
 
+  const handlePageChange = (event, value) => {
+    history.push(`/search?q=${query}&page=${value}`)
+  }
+
   return (
     <div className="search">
       <Header />
@@ -59,8 +66,7 @@ const Search = () => {
           type="button"
           className="search-button"
           onClick={() => {
-            setPage(1)
-            setQuery(inputValue.trim())
+            history.push(`/search?q=${inputValue.trim()}&page=1`)
           }}
         >
           Search
@@ -87,8 +93,9 @@ const Search = () => {
         {totalPages === 1 ? null : (
           <Pagination
             count={totalPages}
+            page={page}
             variant="outlined"
-            onChange={(event, value) => setPage(value)}
+            onChange={handlePageChange}
             color="secondary"
             sx={{
               '& .MuiPaginationItem-root': {
