@@ -1,34 +1,226 @@
 .navbar {
-  background: transparent;
-  padding: 20px 60px;
+  background: rgba(10, 14, 26, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 15px 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: ease-in-out 1s;
+  transition: all 0.4s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-title {
   color: white;
+  margin: 0;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburger .line {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 5px;
+  transition: all 0.3s linear;
+  transform-origin: 1px;
+}
+
+.hamburger .line.open:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger .line.open:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.hamburger .line.open:nth-child(3) {
+  transform: rotate(-45deg);
 }
 
 .nav-links {
   display: flex;
   gap: 35px;
   list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.search-li {
+  display: flex;
+  align-items: center;
+}
+
+.header-search-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 5px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.header-search-form:focus-within {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  width: 120px;
+  transition: width 0.3s ease;
+}
+
+.header-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.header-search-input:focus {
+  width: 180px;
+}
+
+.header-search-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
 }
 
 .nav-btn {
   text-decoration: none;
-  color: white;
-  font-family: Verdana, sans-serif;
-  transition: ease-in-out 0.3s;
-}
-
-.active-nav-btn {
-  border-bottom: 2px solid red;
+  color: var(--text-main);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
   padding-bottom: 5px;
 }
 
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--accent-primary);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.nav-btn:hover::after,
+.active-nav-btn::after {
+  width: 100%;
+}
+
+.active-nav-btn {
+  color: var(--text-main);
+}
+
 .nav-btn:hover {
-  color: rgb(90, 90, 90);
+  color: var(--text-main);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-header {
+    width: 100%;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    margin-top: 0;
+    align-items: center;
+  }
+
+  .nav-links.show {
+    max-height: 300px;
+    margin-top: 20px;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-btn {
+    display: inline-block;
+    padding: 10px 0;
+  }
+
+  .search-li {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .header-search-form {
+    width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  .header-search-input {
+    width: 100%;
+  }
+
+  .header-search-input:focus {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-links {
+    gap: 15px;
+  }
 }

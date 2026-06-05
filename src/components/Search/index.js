@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -7,11 +8,24 @@ import {getSearchMoviesURL} from '../../utils/constants'
 import './Search.css'
 
 const Search = () => {
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const initialQuery = queryParams.get('q') || ''
+
   const [searchData, setSearchData] = useState([])
-  const [query, setQuery] = useState('')
-  const [inputValue, setInputValue] = useState('')
+  const [query, setQuery] = useState(initialQuery)
+  const [inputValue, setInputValue] = useState(initialQuery)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+
+  useEffect(() => {
+    const currentQuery = queryParams.get('q') || ''
+    if (currentQuery !== query) {
+      setQuery(currentQuery)
+      setInputValue(currentQuery)
+      setPage(1)
+    }
+  }, [location.search])
 
   useEffect(() => {
     const fetchData = async () => {

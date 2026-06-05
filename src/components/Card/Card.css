@@ -1,81 +1,139 @@
 .card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
   overflow: hidden;
   max-width: 230px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
-    border-color 0.25s ease;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(229, 9, 20, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card:hover::before {
+  left: 100%;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(128, 0, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(229, 9, 20, 0.3);
+  border-color: rgba(229, 9, 20, 0.5);
+  background: linear-gradient(
+    135deg,
+    rgba(229, 9, 20, 0.05) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+}
+
+.card-img-wrapper {
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  position: relative;
 }
 
 .card-img {
   width: 100%;
-  height: 320px;
+  height: 340px;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .card:hover .card-img {
-  transform: scale(1.04);
+  transform: scale(1.08);
 }
 
 .card-details {
-  padding: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
 }
 
 .card-name {
   margin: 0;
-  color: #ffffff;
-  font-size: 18px;
+  color: var(--text-main);
+  font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.3;
-  font-family: sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-rating {
   margin: 0;
-  color: #b6b6b6;
-  font-size: 14px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-rating::before {
+  content: '⭐';
+  font-size: 0.8rem;
 }
 
 .card-btn {
-  background: none;
-  color: rgb(110, 110, 110);
-  font-family: Verdana, sans-serif;
-  padding: 7px;
-  border: 0.7px solid rgba(159, 159, 159, 0.442);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50px;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 0.3s ease;
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-btn:hover {
-  transform: scale(1.03);
-  opacity: 0.92;
-  border-color: white;
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary) 0%,
+    var(--accent-secondary) 100%
+  );
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+  transform: translateY(-2px);
 }
 
 .card-btn:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
 }
 
 @media screen and (max-width: 768px) {
@@ -84,21 +142,21 @@
   }
 
   .card-img {
-    height: 260px;
+    height: 270px;
   }
 
   .card-name {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   .card {
-    max-width: 160px;
+    max-width: 150px;
   }
 
   .card-img {
-    height: 230px;
+    height: 220px;
   }
 
   .card-details {
@@ -106,7 +164,7 @@
   }
 
   .card-btn {
-    padding: 9px 12px;
-    font-size: 13px;
+    padding: 8px;
+    font-size: 0.85rem;
   }
 }

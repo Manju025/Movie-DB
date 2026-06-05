@@ -41,3 +41,9 @@
   font-size: 12px;
   color: #64748b;
 }
+
+@media screen and (max-width: 480px) {
+  .footer-links a {
+    margin: 0 5px;
+  }
+}

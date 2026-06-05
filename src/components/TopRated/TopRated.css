@@ -1,12 +1,30 @@
 .toprated {
-  background: linear-gradient(
-    135deg,
-    #2d2212,
-    #0d1920,
-    #120e22,
-    #1b0b17,
-    rgb(49, 19, 19)
-  );
   min-height: 100vh;
-  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+.title {
+  color: var(--text-main);
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 30px 0 10px 80px;
+  background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 1.5rem;
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 1.25rem;
+    margin-left: 20px;
+  }
 }

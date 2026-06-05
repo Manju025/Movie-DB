@@ -9,7 +9,7 @@ const Card = ({id, imageUrl, name, rating}) => {
   }
 
   return (
-    <div className="card">
+    <div className="card animate-fade-in-up">
       <img
         src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
         alt={name}
