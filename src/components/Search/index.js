@@ -19,12 +19,11 @@ const Search = () => {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search)
     const currentQuery = queryParams.get('q') || ''
-    if (currentQuery !== query) {
-      setQuery(currentQuery)
-      setInputValue(currentQuery)
-      setPage(1)
-    }
+    setQuery(currentQuery)
+    setInputValue(currentQuery)
+    setPage(1)
   }, [location.search])
 
   useEffect(() => {
